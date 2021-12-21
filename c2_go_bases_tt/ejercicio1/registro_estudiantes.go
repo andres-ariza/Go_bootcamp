@@ -4,23 +4,24 @@ import (
 	"fmt"
 )
 
-func main() {
-	type Fecha struct {
-		dia int
-		mes string
-		año int
-	}
-	type Alumnos struct {
-		Nombre   string
-		Apellido string
-		DNI      int
-		Fecha    Fecha
-	}
-
-	p1 := Alumnos{"Pepe", "Contreras", 198278345, Fecha{04, "Enero", 1998}}
-	detalle(p1)
+type Alumno struct {
+	Nombre   string
+	Apellido string
+	DNI      int
+	Fecha    Fecha
+}
+type Fecha struct {
+	dia int
+	mes string
+	año int
 }
 
-func detalle(a Alumnos) {
-	fmt.Println(p1)
+func (a Alumno) detalle() {
+	fmt.Printf("Detalle del alumno: %+v\n", a)
+
+}
+func main() {
+
+	p1 := Alumno{"Pepe", "Contreras", 198278345, Fecha{04, "Enero", 1998}}
+	Alumno.detalle(p1)
 }
