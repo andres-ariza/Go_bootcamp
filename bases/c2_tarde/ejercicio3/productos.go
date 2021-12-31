@@ -1,50 +1,99 @@
 package main
 
-type tienda struct {
-}
+import (
+	"fmt"
+)
 
-type producto struct {
-	tipo   string
+// estructuras -------
+type tiendaBog struct {
 	nombre string
 	precio float64
+	tienda string
+}
+type tiendaMed struct {
+	precio float64
+	tienda string
 }
 
-type Producto interface {
-	CalcularCosto()
-}
-
-type Ecomerce interface {
-	Total()
-	Agregar()
-}
-
-func (p producto) CalcularCosto(tamaño string) float64 {
+// metodos de estructuras -------
+func (t tiendaBog) Precio(tamaño string) float64 {
 	switch tamaño {
 	case "pequeño":
-		return p.precio
+		return t.precio
 	case "mediano":
 		var porcentaje float64
-		porcentaje = p.precio * 0.03
-		return p.precio + porcentaje
+		porcentaje = (t.precio / 100) * 3
+		return t.precio + porcentaje
 	case "grande":
 		var porcentaje float64
-		adicional := float64(2500)
-		porcentaje = p.precio * 0.06
-		return p.precio + porcentaje + adicional
+		flete := 2500
+		porcentaje = (t.precio / 100) * 6
+		return t.precio + porcentaje + float64(flete)
 	}
-	return p.precio
+	return t.precio
 }
 
-func nuevaTienda(tipo string) Ecomerce {
-	if tipo == "ropa" {
-		return tienda{nombre: "pantalon", precio: 20000, tienda: "H&M", url: "http//H&M.com"}
+func (t tiendaBog) Envio(dir string) string {
+	enviado := "Enviando un paquete a " + dir
+	return enviado
+}
+func (t tiendaMed) Precio(tamaño string) float64 {
+	switch tamaño {
+	case "pequeño":
+		return t.precio
+	case "mediano":
+		var porcentaje float64
+		porcentaje = (t.precio / 100) * 3
+		return t.precio + porcentaje
+	case "grande":
+		var porcentaje float64
+		flete := 2500
+		porcentaje = (t.precio / 100) * 6
+		return t.precio + porcentaje + float64(flete)
 	}
+	return t.precio
+}
+func (t tiendaMed) Envio(dir string) string {
+	enviado := "Enviando un paquete a " + dir
+	return enviado
 }
 
-func nuevoProducto(tipo string, nombre string, precio float64) Producto {
-
+// interfaces -------
+type Ecommerce interface {
+	Precio(size string) float64
+	Envio(direccion string) string
 }
 
+// funciones de interfaces --------
+func nuevaTienda(mailType string) Ecommerce {
+	if mailType == "Tienda Rola" {
+		return tiendaBog{nombre: "mesa", precio: 2000, tienda: "sucursal bogota"}
+	}
+	if mailType == "Tienda Paisa" {
+		return tiendaMed{precio: 5000, tienda: "sucursal medellin"}
+	}
+	return nil
+}
 func main() {
-	justoybueno := nuevaTienda("ropa")
+	fmt.Println("------------------------------------------------")
+
+	tiendaMedellin := nuevaTienda("Tienda Paisa")          // func interfase
+	precioMedellin := tiendaMedellin.Precio("grande")      // struct method
+	envioMedellin := tiendaMedellin.Envio("Parque lleras") // struct method
+
+	fmt.Println(tiendaMedellin)
+	fmt.Println(envioMedellin)
+	fmt.Println("Precio del producto:", precioMedellin)
+
+	fmt.Println("------------------------------------------------")
+
+	tiendaBogota := nuevaTienda("Tienda Rola")     // func interfase
+	precioBogota := tiendaBogota.Precio("Mediano") // struct method
+	envioBogota := tiendaBogota.Envio("Calle 100") // struct method
+
+	fmt.Println(tiendaBogota)
+	fmt.Println(envioBogota)
+	fmt.Println("Precio del pruducto:", precioBogota)
+
+	fmt.Println("------------------------------------------------")
 }
