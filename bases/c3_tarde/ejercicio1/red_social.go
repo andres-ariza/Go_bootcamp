@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type usuario struct {
+type Usuario struct {
 	Nombre     string
 	Apellido   string
 	Edad       int
@@ -12,32 +12,30 @@ type usuario struct {
 	Contraseña string
 }
 
-func cambiarNombre(n *string, a *string) {
-
+func cambiarNombre(Name *string, lName *string) {
+	*Name = "Alice"
+	*lName = "Medrano"
 }
-func cambiarEdad(e *int) {
-
+func cambiarEdad(Age *int) {
+	*Age = 26
 }
-func cambiarCorreo(c *string) {
-
+func cambiarCorreo(Mail *string) {
+	*Mail = "alice.medrani@gmail.com"
 }
-func cambiarContraseña(c *string) {
-
+func cambiarContraseña(Pw *string) {
+	*Pw = "asd123"
 }
 
 func main() {
-	user := usuario{"Andres", "Ariza", 27, "afaarizap@gmail.com", "123abc"}
-	var p *usuario
+	p := Usuario{"Andres", "Ariza", 27, "afarizap@gmail.com", "123abc"}
+	fmt.Println("Los valores del usuario son: ", p)
 
-	nuevoNombre, nuevoApellido := "Alice", "Medrano"
-
-	p = &user
 	cambiarNombre(&p.Nombre, &p.Apellido)
 	cambiarEdad(&p.Edad)
 	cambiarCorreo(&p.Correo)
 	cambiarContraseña(&p.Contraseña)
 
-	fmt.Println(user.Apellido)
+	fmt.Println("Los valores del usuario ahora son: ", p)
 	print()
 
 }
