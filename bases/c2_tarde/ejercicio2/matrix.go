@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 type Matrix struct {
@@ -13,6 +14,9 @@ type Matrix struct {
 func (m Matrix) Set() {
 	if len(m.valores) != m.ancho*m.alto {
 		fmt.Println("La cantidad de valores no coincide con las dimensiones especificadas")
+	} else {
+		fmt.Println("La cantidad de valores coincide con las dimensiones")
+
 	}
 }
 
@@ -28,13 +32,21 @@ func (m Matrix) Print() {
 
 func (m Matrix) isCuadratic() {
 	if (m.alto == m.ancho) && m.alto != 0 {
-		fmt.Println("True")
+		fmt.Println("Si, es cuadratica")
+	} else {
+		fmt.Println("No es cuadratica")
+
 	}
-	fmt.Println("False")
 }
 
 func (m Matrix) Max() {
-
+	max := -math.MaxFloat64
+	for _, elemento := range m.valores {
+		if elemento > max {
+			max = elemento
+		}
+	}
+	fmt.Println(max)
 }
 func main() {
 	m := Matrix{
