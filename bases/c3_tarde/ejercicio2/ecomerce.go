@@ -32,7 +32,7 @@ func borrarProductos(User *Usuario) {
 }
 func main() {
 	producto := nuevoProducto("leche", 3200.0)
-	fmt.Println("leche: ", producto)
+	fmt.Println("producto: ", producto)
 	cliente := Usuario{
 		Nombre:    "Andres",
 		Apellido:  "Ariza",
@@ -40,7 +40,6 @@ func main() {
 		Productos: []Producto{},
 	}
 	fmt.Println("cliente: ", cliente)
-	fmt.Printf("productos: %v %T\n", cliente.Productos, cliente.Productos)
 	agregarProducto(&cliente, &producto, 3)
 	fmt.Println("cliente+producto: ", cliente)
 	borrarProductos(&cliente)
