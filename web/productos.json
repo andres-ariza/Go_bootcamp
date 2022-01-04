@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "nombre": "nevera",
+        "color": "verde",
+        "precio": 1150000.00,
+        "stock": 5,
+        "codigo": "nev856",
+        "publicado": true,
+        "creacion": {
+            "dia": 15,
+            "mes": 4,
+            "año": 2021
+        }
+    }, 
+    {
+        "id": 2,
+        "nombre": "lavadora",
+        "color": "gris",
+        "precio": 1200000.00,
+        "stock": 4,
+        "codigo": "lav658",
+        "publicado": true,
+        "creacion": {
+            "dia": 16,
+            "mes": 4,
+            "año": 2021
+        }
+    }
+]
