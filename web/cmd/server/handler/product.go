@@ -4,8 +4,8 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/andres-ariza/GO_BOOTCAMP/web/internal/domain"
-	"github.com/andres-ariza/GO_BOOTCAMP/web/product"
+	"github.com/andres-ariza/Go_bootcamp/web/internal/domain"
+	"github.com/andres-ariza/Go_bootcamp/web/product"
 	"github.com/gin-gonic/gin"
 )
 
