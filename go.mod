@@ -3,6 +3,7 @@ module github.com/andres-ariza/Go_bootcamp
 go 1.17
 
 require (
+	github.com/LucasRosello/golang-mvc-template v0.0.0-20210730144056-1f327f17a47b
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.7.7 // indirect
