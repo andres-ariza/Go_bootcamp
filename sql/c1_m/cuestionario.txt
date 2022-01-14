@@ -1,0 +1,43 @@
+SQL
+
+Cuestionario de la clase
+
+¿Qué es la Redundancia de datos?
+- Es la existencia de datos adicionales a los datos reales y permiten la correccion de errores en los datos almacenados o transmitidos
+
+¿Qué es la inconsistencia de datos?
+- Cuando los datos no son los mas actuales o iguales en tiempo real
+
+Nombre al menos 2 bases de datos entre Consistencia y Tolerancia al particionamiento
+- MongoDB, Redis, Big Table
+
+¿Qué significa SQL?
+- Structured query language o lenguaje de consulta estructurado
+
+En una tabla de datos que es la Primary Key o Llave primaria
+- identifica las columnas unicas en una tabla
+
+En una tabla de datos que es la Foreign Key o Llave foránea
+- identifica la llave primaria de otra tabla
+
+¿Qué significa que una relación entre dos entidades es UNO a UNO?
+- una columna se relaciona con otra columna
+
+¿Qué significa que una relación entre dos entidades es UNO a MUCHOS?
+- una columna se relaciona con varias columnas
+
+¿Qué significa que una relación entre dos entidades es MUCHOS a MUCHOS?
+- varias columnas se relacionan con otras columnas
+
+Defina que es una base de datos
+- conjunto de datos que se almacenan de forma organizada para ser consultada de forma eficiente
+
+Defina el concepto atributo
+- define un objeto, en este caso las columnas de una tabla
+
+DER
+
+- Realizar un diagrama de entidad de relaciones para un sistema de alquiler de libros en una biblioteca en
+ donde una persona puede reservar más de un libro. Implementarlo en una base de datos.
+- Mejorar el diagrama entidad-relación realizado anteriormente incorporando una tabla intermedia “alquiler”
+ para administrar la fecha de alquiler y devolución de los libros a ser prestados.
