@@ -36,7 +36,7 @@ type Product struct {
 }
 
 const (
-	GetAll            = "DELETE FROM products WHERE id = ?"
+	GetAll            = "SELECT id, name, type, count, price FROM products"
 	GetProductByID    = "SELECT id, name, type, count, price FROM products WHERE id = ?"
 	GetByName         = "SELECT id, name, type, count, price FROM products WHERE name = ?"
 	NewInsert         = "INSERT INTO products(name, type, count, price) VALUES( ?, ?, ?, ? )"

@@ -43,3 +43,22 @@ func TestGetOneWithContext(t *testing.T) {
 	fmt.Println(err)
 	assert.Equal(t, product.Name, productResult.Name)
 }
+
+func TestGetAll(t *testing.T) {
+	allProducts, err := NewRepo().GetAll()
+	expectedProducts := []Product{
+		{
+			ID:              4,
+			Name:            "test",
+			Type:            "",
+			Count:           0,
+			Price:           0,
+			WarehouseID:     0,
+			Warehouse:       "",
+			WarehouseAdress: "",
+		},
+	}
+
+	assert.Nil(t, err)
+	assert.Equal(t, expectedProducts, allProducts)
+}
