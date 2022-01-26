@@ -36,13 +36,20 @@ type Product struct {
 }
 
 const (
-	GetProduct = "SELECT * FROM products WHERE id = ?"
-	GetByName  = "SELECT * FROM products WHERE name = ?"
+	GetAll            = "DELETE FROM products WHERE id = ?"
+	GetProductByID    = "SELECT id, name, type, count, price FROM products WHERE id = ?"
+	GetByName         = "SELECT id, name, type, count, price FROM products WHERE name = ?"
+	NewInsert         = "INSERT INTO products(name, type, count, price) VALUES( ?, ?, ?, ? )"
+	UpdateByID        = "UPDATE products SET name = ?, type = ?, count = ?, price = ? WHERE id = ?"
+	DeleteByID        = "DELETE FROM products WHERE id = ?"
+	InnerJoinProdWare = "SELECT products.id, products.name, products.type, products.count, products.price, warehouses.name, warehouses.adress " +
+		"FROM products INNER JOIN warehouses ON products.id_warehouse = warehouses.id " +
+		"WHERE products.id = ?"
 )
 
 func (r *repository) Store(product Product) (Product, error) {
-	db := db.StorageDB                                                                             // se inicializa la base
-	stmt, err := db.Prepare("INSERT INTO products(name, type, count, price) VALUES( ?, ?, ?, ? )") // se prepara el SQL
+	db := db.StorageDB                 // se inicializa la base
+	stmt, err := db.Prepare(NewInsert) // se prepara el SQL
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -61,7 +68,7 @@ func (r *repository) Store(product Product) (Product, error) {
 func (r *repository) GetOne(id int) Product {
 	var product Product
 	db := db.StorageDB
-	rows, err := db.Query(GetProduct, id)
+	rows, err := db.Query(GetProductByID, id)
 	if err != nil {
 		log.Println(err)
 		return product
@@ -77,8 +84,8 @@ func (r *repository) GetOne(id int) Product {
 }
 
 func (r *repository) Update(product Product) (Product, error) {
-	db := db.StorageDB                                                                                   // se inicializa la base
-	stmt, err := db.Prepare("UPDATE products SET name = ?, type = ?, count = ?, price = ? WHERE id = ?") // se prepara la sentencia SQL a ejecutar
+	db := db.StorageDB                  // se inicializa la base
+	stmt, err := db.Prepare(UpdateByID) // se prepara la sentencia SQL a ejecutar
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -113,7 +120,7 @@ func (r *repository) GetByName(name string) Product {
 func (r *repository) GetAll() ([]Product, error) {
 	var products []Product
 	db := db.StorageDB
-	rows, err := db.Query("SELECT * FROM products")
+	rows, err := db.Query(GetAll)
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -133,8 +140,8 @@ func (r *repository) GetAll() ([]Product, error) {
 }
 
 func (r *repository) Delete(id int) error {
-	db := db.StorageDB                                           // se inicializa la base
-	stmt, err := db.Prepare("DELETE FROM products WHERE id = ?") // se prepara la sentencia SQL a ejecutar
+	db := db.StorageDB                  // se inicializa la base
+	stmt, err := db.Prepare(DeleteByID) // se prepara la sentencia SQL a ejecutar
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -152,10 +159,7 @@ func (r *repository) Delete(id int) error {
 func (r *repository) GetFullData(id int) Product {
 	var product Product
 	db := db.StorageDB
-	innerJoin := "SELECT products.id, products.name, products.type, products.count, products.price, warehouses.name, warehouses.adress " +
-		"FROM products INNER JOIN warehouses ON products.id_warehouse = warehouses.id " +
-		"WHERE products.id = ?"
-	rows, err := db.Query(innerJoin, id)
+	rows, err := db.Query(InnerJoinProdWare, id)
 	if err != nil {
 		log.Println(err)
 		return product
@@ -173,14 +177,12 @@ func (r *repository) GetFullData(id int) Product {
 func (r *repository) GetOneWithcontext(ctx context.Context, id int) (Product, error) {
 	var product Product
 	db := db.StorageDB
-	// // se especifican estrictamente los campos necesarios en la query
-	// getQuery := "SELECT p.id, p.name, p.type, p.count, p.price FROM products p WHERE p.id = ?"
+	// ya no se usa db.Query sino db.QueryContext
+	rows, err := db.QueryContext(ctx, GetProductByID, id)
+	// // se utiliza una query que demore 30 segundos en ejecutarse
+	// getQuery := "SELECT SLEEP(30) FROM DUAL where 0 < ?"
 	// // ya no se usa db.Query sino db.QueryContext
 	// rows, err := db.QueryContext(ctx, getQuery, id)
-	// se utiliza una query que demore 30 segundos en ejecutarse
-	getQuery := "SELECT SLEEP(30) FROM DUAL where 0 < ?"
-	// ya no se usa db.Query sino db.QueryContext
-	rows, err := db.QueryContext(ctx, getQuery, id)
 
 	if err != nil {
 		log.Println(err)
