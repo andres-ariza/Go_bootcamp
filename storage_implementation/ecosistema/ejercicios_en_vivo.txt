@@ -1,0 +1,6 @@
+Para almacenar archivos binarios (recibos) para mi sistema de procesamiento de Billing se deberia utilizar:
+- Object storage (s3: simple storage service)(estructura de directorios)
+
+Si tengo que guardar todos los datos de los usuarios de meli, que tipo de db usaria?
+- 
+
