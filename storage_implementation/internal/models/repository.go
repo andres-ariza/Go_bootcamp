@@ -11,7 +11,7 @@ import (
 type Repository interface {
 	Store(product Product) (Product, error)
 	GetOne(id int) Product
-	Update(product Product) (Product, error)
+	Update(ctx context.Context, product Product) (Product, error)
 	GetByName(name string) Product // ejercicio 1
 	GetAll() ([]Product, error)
 	Delete(id int) error
@@ -83,14 +83,14 @@ func (r *repository) GetOne(id int) Product {
 	return product
 }
 
-func (r *repository) Update(product Product) (Product, error) {
+func (r *repository) Update(ctx context.Context, product Product) (Product, error) {
 	db := db.StorageDB                  // se inicializa la base
 	stmt, err := db.Prepare(UpdateByID) // se prepara la sentencia SQL a ejecutar
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer stmt.Close() // se cierra la sentencia al terminar. Si quedan abiertas se genera consumos de memoria
-	_, err = stmt.Exec(product.Name, product.Type, product.Count, product.Price, product.ID)
+	_, err = stmt.ExecContext(ctx, product.Name, product.Type, product.Count, product.Price, product.ID)
 	if err != nil {
 		return Product{}, err
 	}
